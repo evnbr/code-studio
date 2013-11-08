@@ -170,7 +170,7 @@
   }
 
   function finger(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (e.changedTouches) {
       pmouse = mouse;
       mouse = { x: e.changedTouches[0].pageX, y: e.changedTouches[0].pageY };

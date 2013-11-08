@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  -webkit-box-sizing: border-box;
+  list-style: none; }
+
+html {
+  font: 20px/1.25em "Karla", sans-serif; }
+
+body {
+  color: blue;
+  border-color: blue;
+  -webkit-animation: colorswap 30s infinite;
+  background: white;
+  -webkit-transition: all 0.5s; }
+
+.wrap {
+  padding: 4em 10%;
+  margin: auto;
+  max-width: 1000px; }
+
+a, a:visited {
+  -webkit-animation: colorswap 30s infinite;
+  text-decoration: none;
+  border-bottom: 1px dotted blue; }
+  a:hover, a:visited:hover {
+    border-bottom-style: solid; }
+
+@-webkit-keyframes colorswap {
+  0% {
+    border-color: #0091ad;
+    color: #0091ad; }
+
+  33% {
+    border-color: blue;
+    color: blue; }
+
+  66% {
+    border-color: red;
+    color: red; }
+
+  100% {
+    border-color: #0091ad;
+    color: #0091ad; } }
+
+nav {
+  -webkit-user-select: none;
+  height: 10em;
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.head {
+  display: inline-block;
+  position: fixed; }
+  .head .inner {
+    border-radius: 50%;
+    font-weight: bold;
+    color: blue;
+    -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 82px;
+    line-height: 70px;
+    height: 70px;
+    width: 70px;
+    cursor: -webkit-grab;
+    color: magenta;
+    opacity: 0.5; }
+    .head .inner:hover {
+      -webkit-transform: scale(1.5); }
+    .head .inner:active {
+      -webkit-transform: scale(1.2); }
+
+h2 {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding-bottom: 1rem; }
+
+h3 {
+  text-transform: uppercase;
+  font-weight: bold; }
+
+section {
+  padding-bottom: 5em; }
+
+.info {
+  padding-top: 2em; }
+
+.metadata {
+  padding-bottom: 1em; }
+
+.people {
+  padding-top: 2em; }
+
+.people {
+  -webkit-columns: 3; }
+
+.people > li {
+  cursor: pointer;
+  position: relative; }
+  .people > li::after {
+    font-size: 0.7em;
+    content: attr(data-about);
+    display: block;
+    padding-bottom: 1em;
+    -webkit-animation: colorswap 30s infinite;
+    -webkit-transition: all 0.3s; }
+
+@media (max-width: 500px) {
+  .head .inner {
+    height: 50px;
+    width: 50px;
+    line-height: 50px; } }

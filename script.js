@@ -11,7 +11,7 @@
   var inset = {x: 0, y: 0};
   var doc = document;
   var wind = {w: window.innerWidth, h: window.innerHeight};
-  var bumper = wind.w / 8
+  var bumper = -200; //wind.w / 8
   var mouse = {x:0, y:0};
   var pmouse = {x:0, y:0};
   var tick = 1000 / FPS;
@@ -73,14 +73,14 @@
     for (var i = 10; i > 0; i--) {
       thing[i-1] = new Physical("box" + i);
 
-      var x = Math.random() * wind.w;
-      var y = Math.random() * wind.h;
+      var x = 50 + arrangeMsg[i-1].x * 60;
+      var y = 100 + arrangeMsg[i-1].y * 60;
 
       thing[i-1].move({x: x, y: y});
 
       thing[i-1].vel = {
-        x: (Math.random() * 2 - 4),
-        y: (Math.random() * 2 - 4)
+        x: (Math.random() * 0.2 - 0.1),
+        y: (Math.random() * 0.2 - 0.1)
       };
 
     }
@@ -110,7 +110,7 @@
     window.onresize = resize;
 
     (function step(){
-      setTimeout(function(){ requestAnimationFrame(step); }, 0);
+      requestAnimationFrame(step);
       for (var i = 10; i > 0; i--) { thing[i-1].coast(); }
     })();
 
@@ -127,8 +127,8 @@
     // -------
     for (var i = 10; i > 0; i--) {
       thing[i-1].vel = {
-        x: (Math.random() * 1 - 0.5),
-        y: (Math.random() * 1 - 0.5)
+        x: 0, //(Math.random() * 0.2 - 0.1),
+        y: 0 //(Math.random() * 0.2 - 0.1)
       };
     }
 

@@ -16,7 +16,7 @@ body {
   -webkit-transition: all 0.5s; }
 
 .wrap {
-  padding: 4em 10%;
+  padding: 12em 10%;
   margin: auto;
   max-width: 1000px; }
 
@@ -46,7 +46,7 @@ a, a:visited {
 
 nav {
   -webkit-user-select: none;
-  height: 10em;
+  height: 0em;
   position: absolute;
   left: 0;
   right: 0;
@@ -58,11 +58,12 @@ nav {
   .head .inner {
     border-radius: 50%;
     font-weight: bold;
+    border: 1px solid blue;
     color: blue;
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     text-align: center;
     text-transform: uppercase;
-    font-size: 62px;
+    font-size: 20px;
     line-height: 70px;
     height: 70px;
     width: 70px;

@@ -112,6 +112,8 @@
     (function step(){
       requestAnimationFrame(step);
       for (var i = 10; i > 0; i--) { thing[i-1].coast(); }
+      // separate math and DOM steps
+      for (var i = 10; i > 0; i--) { thing[i-1].applyMove(); }
     })();
 
   });
@@ -292,9 +294,12 @@
         self.pos.x += self.vel.x * tick;
         self.pos.y += self.vel.y * tick;
 
-        // Move to end position, for when animation has completed
-        self.move({x: self.pos.x, y: self.pos.y});
+        // self.move({x: self.pos.x, y: self.pos.y});
     };
+
+    self.applyMove = function() {
+      self.move({x: self.pos.x, y: self.pos.y});
+    }
 
     self.initiate = function() {
       self.selector = selector;                // Div id name
@@ -345,11 +350,11 @@
       if (thing[i] !== it) {
         var xdist = Math.abs(thing[i].pos.x - it.pos.x);
         var ydist = Math.abs(thing[i].pos.y - it.pos.y);
-        var dist = xdist * xdist + ydist * ydist;
+        var dist = Math.sqrt(xdist * xdist + ydist * ydist);
         var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
         var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
-        var springiness = dist * targ_spring_constant * 0.00001;
-        var repulsion = -1/dist * targ_spring_constant * 10000;
+        var springiness = dist * targ_spring_constant * 0.001;
+        var repulsion = -1/dist * targ_spring_constant * 200;
         it.vel.x += xpercent * springiness;
         it.vel.y += ypercent * springiness;
         it.vel.x += xpercent * repulsion;

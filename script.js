@@ -345,11 +345,11 @@
       if (thing[i] !== it) {
         var xdist = Math.abs(thing[i].pos.x - it.pos.x);
         var ydist = Math.abs(thing[i].pos.y - it.pos.y);
-        var dist = Math.sqrt(xdist * xdist + ydist * ydist);
+        var dist = xdist * xdist + ydist * ydist;
         var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
         var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
-        var springiness = dist * targ_spring_constant * 0.001;
-        var repulsion = -1/dist * targ_spring_constant * 200;
+        var springiness = dist * targ_spring_constant * 0.00001;
+        var repulsion = -1/dist * targ_spring_constant * 10000;
         it.vel.x += xpercent * springiness;
         it.vel.y += ypercent * springiness;
         it.vel.x += xpercent * repulsion;

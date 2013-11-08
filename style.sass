@@ -51,7 +51,6 @@ nav
   -webkit-user-select: none
   height: 10em
   position: absolute
-  z-index: 0
   left: 0
   right: 0
   top: 0
@@ -67,14 +66,14 @@ nav
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     text-align: center
     text-transform: uppercase
-    font-size: 82px
+    font-size: 62px
     line-height: $size
     height: $size
     width: $size
     cursor: -webkit-grab
-    color: magenta
-    opacity: 0.5
-    //-webkit-animation: colorswap 30s infinite
+    //color: magenta
+    opacity: 1
+    -webkit-animation: colorswap 30s infinite
     &:hover
       -webkit-transform: scale(1.5)
       // &::after

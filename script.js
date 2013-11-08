@@ -11,7 +11,7 @@
   var inset = {x: 0, y: 0};
   var doc = document;
   var wind = {w: window.innerWidth, h: window.innerHeight};
-  var bumper = -200; //wind.w / 8
+  var bumper = 0; //wind.w / 8
   var mouse = {x:0, y:0};
   var pmouse = {x:0, y:0};
   var tick = 1000 / FPS;
@@ -127,8 +127,8 @@
     // -------
     for (var i = 10; i > 0; i--) {
       thing[i-1].vel = {
-        x: 0, //(Math.random() * 0.2 - 0.1),
-        y: 0 //(Math.random() * 0.2 - 0.1)
+        x: (Math.random() * 0.2 - 0.1),
+        y: (Math.random() * 0.2 - 0.1)
       };
     }
 
@@ -186,7 +186,6 @@
   var after;
   function resize() {
     wind = {w: window.innerWidth, h: window.innerHeight};
-    bumper = wind.w / 8;
 
     if (wind.w < 500) {
       arrange17spacer = 20;

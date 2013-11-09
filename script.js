@@ -80,8 +80,8 @@
       // thing[i-1].targ({x: x, y: y});
 
       thing[i-1].vel = {
-        x: 0, //(Math.random() * 0.2 - 0.1),
-        y: 0 //(Math.random() * 0.2 - 0.1)
+        x: (Math.random() * 1 - 0.5),
+        y: (Math.random() * 1 - 0.5)
       };
 
     }
@@ -358,7 +358,7 @@
         var repulsion = -1/dist*dist * targ_spring_constant * 1000;
         //it.vel.x += xpercent * springiness;
         //it.vel.y += ypercent * springiness;
-        if (dist < 100) {
+        if (dist < 55) {
           it.vel.x += xpercent * repulsion;
           it.vel.y += ypercent * repulsion;
         }

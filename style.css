@@ -11,7 +11,6 @@ html {
 body {
   color: black;
   border-color: blue;
-  -webkit-animation: colorswap 30s infinite;
   background: white;
   -webkit-transition: all 0.5s; }
 
@@ -21,7 +20,6 @@ body {
   max-width: 1000px; }
 
 a, a:visited {
-  -webkit-animation: colorswap 30s infinite;
   text-decoration: none;
   border-bottom: 1px dotted blue; }
   a:hover, a:visited:hover {
@@ -61,7 +59,6 @@ nav {
     font-weight: bold;
     border: 1px solid blue;
     color: blue;
-    -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     text-align: center;
     text-transform: uppercase;
     font-size: 20px;

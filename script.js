@@ -220,6 +220,7 @@
                 y: go.y };
       //$("#log").html(build_tform(self.pos.x, self.pos.y, self.pos.vel));
       self.el.style.webkitTransform = build_tform(self.pos.x, self.pos.y, self.pos.vel);
+      self.el.style.transform = build_tform(self.pos.x, self.pos.y, self.pos.vel);
       return self;
     };
     self.make_draggable = function(phys) {

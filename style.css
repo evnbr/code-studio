@@ -17,7 +17,7 @@ body {
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
-  -webkit-animation: bgswap 100s infinite linear; }
+  -webkit-animation: bgswap 120s infinite linear; }
 
 .wrap {
   padding: 9% 15% 70% 15%;

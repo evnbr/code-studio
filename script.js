@@ -80,8 +80,8 @@
       // thing[i-1].targ({x: x, y: y});
 
       thing[i-1].vel = {
-        x: (Math.random() * 1 - 0.5),
-        y: (Math.random() * 1 - 0.5)
+        x: (Math.random() * 0.5 - 0.25),
+        y: (Math.random() * 0.5 - 0.25)
       };
 
     }

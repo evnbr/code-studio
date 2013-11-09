@@ -15,7 +15,7 @@ body {
   -webkit-transition: all 0.5s; }
 
 .wrap {
-  padding: 10% 10%;
+  padding: 9% 15%;
   margin: auto;
   max-width: 1000px; }
 
@@ -108,4 +108,7 @@ section {
   .head .inner {
     height: 50px;
     width: 50px;
-    line-height: 50px; } }
+    line-height: 50px; }
+
+  .wrap {
+    padding: 9% 7%; } }

@@ -81,7 +81,14 @@ nav {
   z-index: 0;
   left: 0;
   right: 0;
-  top: 0; }
+  top: 0;
+  opacity: 0;
+  -webkit-transition: opacity 2s;
+  -moz-transition: opacity 2s;
+  transition: opacity 2s; }
+
+.letters-ready nav {
+  opacity: 1; }
 
 .head {
   display: inline-block;

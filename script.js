@@ -110,6 +110,10 @@
 
     window.onresize = resize;
 
+
+
+    document.body.className = "letters-ready";
+
     (function step(){
       requestAnimationFrame(step);
       for (var i = 10; i > 0; i--) { thing[i-1].coast(); }

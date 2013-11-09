@@ -58,6 +58,7 @@ nav {
     border-radius: 50%;
     font-weight: bold;
     color: blue;
+    margin: -40px;
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     text-align: center;
     text-transform: uppercase;

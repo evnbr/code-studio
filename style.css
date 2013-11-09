@@ -20,7 +20,8 @@ body {
   -webkit-animation: bgswap 100s infinite linear; }
 
 .wrap {
-  padding: 9% 15%;
+  padding: 9% 15% 70% 15%;
+  margin: auto;
   max-width: 1100px; }
 
 a, a:visited {
@@ -138,7 +139,7 @@ section {
 
 @media (max-width: 500px) {
   body {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1.2em; }
 
   .head .inner {
@@ -147,4 +148,7 @@ section {
     line-height: 50px; }
 
   .wrap {
-    padding: 9% 5%; } }
+    padding: 9% 5% 70% 5%; }
+
+  .people {
+    -webkit-columns: 1; } }

@@ -373,7 +373,7 @@
   var tilt = 0, roll = 0;
   window.addEventListener("deviceorientation", function () {
       tilt = - event.beta + 10;
-      roll = event.gamma;
+      roll = - event.gamma;
   }, true);
 
   function tiltsense(it) {

@@ -18,6 +18,8 @@ body
   -moz-transition: all 0.5s
   transition: all 0.5s
   -webkit-animation: bgswap 120s infinite linear
+  -moz-animation: bgswap 120s infinite linear
+  animation: bgswap 120s infinite linear
 
 .wrap
   padding: 9% 15% 40% 15%
@@ -25,7 +27,6 @@ body
   max-width: 1050px
 
 a, a:visited
-  //-webkit-animation: colorswap 30s infinite
   color: inherit
   text-decoration: none
   border-bottom: 1px dotted white
@@ -38,22 +39,42 @@ a, a:visited
 
 $size: 70px
 
-@-webkit-keyframes colorswap
-  0%
-    border-color: #0091ad
-    color: #0091ad
-  33%
-    border-color: blue
-    color: blue
-  66%
-    border-color: red
-    color: red
-  100%
-    border-color: #0091ad
-    color: #0091ad
+// @-webkit-keyframes colorswap
+//   0%
+//     border-color: #0091ad
+//     color: #0091ad
+//   33%
+//     border-color: blue
+//     color: blue
+//   66%
+//     border-color: red
+//     color: red
+//   100%
+//     border-color: #0091ad
+//     color: #0091ad
 
 
 @-webkit-keyframes bgswap
+  0%
+    background: blue
+  33%
+    background: red
+  66%
+    background: green
+  100%
+    background: blue
+
+@-moz-keyframes bgswap
+  0%
+    background: blue
+  33%
+    background: red
+  66%
+    background: green
+  100%
+    background: blue
+
+@keyframes bgswap
   0%
     background: blue
   33%
@@ -79,15 +100,17 @@ nav
     border-radius: 50%
     font-weight: bold
     color: white
-    margin: -40px
+    margin: -10vw
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     -moz-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     text-align: center
     font-size: 30vw
-    line-height: $size
-    height: $size
-    width: $size
+    line-height: 20vw
+    height: 20vw
+    width: 20vw
+    cursor: move
+    cursor: grab
     cursor: -webkit-grab
     opacity: 0.3
     &:hover

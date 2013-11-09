@@ -17,7 +17,9 @@ body {
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
-  -webkit-animation: bgswap 120s infinite linear; }
+  -webkit-animation: bgswap 120s infinite linear;
+  -moz-animation: bgswap 120s infinite linear;
+  animation: bgswap 120s infinite linear; }
 
 .wrap {
   padding: 9% 15% 40% 15%;
@@ -33,24 +35,33 @@ a, a:visited {
     color: blue;
     background: white; }
 
-@-webkit-keyframes colorswap {
+@-webkit-keyframes bgswap {
   0% {
-    border-color: #0091ad;
-    color: #0091ad; }
+    background: blue; }
 
   33% {
-    border-color: blue;
-    color: blue; }
+    background: red; }
 
   66% {
-    border-color: red;
-    color: red; }
+    background: green; }
 
   100% {
-    border-color: #0091ad;
-    color: #0091ad; } }
+    background: blue; } }
 
-@-webkit-keyframes bgswap {
+@-moz-keyframes bgswap {
+  0% {
+    background: blue; }
+
+  33% {
+    background: red; }
+
+  66% {
+    background: green; }
+
+  100% {
+    background: blue; } }
+
+@keyframes bgswap {
   0% {
     background: blue; }
 
@@ -79,15 +90,17 @@ nav {
     border-radius: 50%;
     font-weight: bold;
     color: white;
-    margin: -40px;
+    margin: -10vw;
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     -moz-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     text-align: center;
     font-size: 30vw;
-    line-height: 70px;
-    height: 70px;
-    width: 70px;
+    line-height: 20vw;
+    height: 20vw;
+    width: 20vw;
+    cursor: move;
+    cursor: grab;
     cursor: -webkit-grab;
     opacity: 0.3; }
     .head .inner:hover {

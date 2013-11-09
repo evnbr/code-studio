@@ -73,8 +73,8 @@
     for (var i = 10; i > 0; i--) {
       thing[i-1] = new Physical("box" + i);
 
-      var x = 50 + arrangeMsg[i-1].x * 60;
-      var y = 100 + arrangeMsg[i-1].y * 60;
+      var x = wind.w/9 + arrangeMsg[i-1].x * wind.w/6;
+      var y = wind.w/6 + arrangeMsg[i-1].y * wind.w/6;
 
       thing[i-1].move({x: x, y: y});
       // thing[i-1].targ({x: x, y: y});
@@ -360,7 +360,7 @@
         var repulsion = -1/dist*dist * targ_spring_constant * 500;
         //it.vel.x += xpercent * springiness;
         //it.vel.y += ypercent * springiness;
-        if (dist < 55) {
+        if (dist < wind.w/6) {
           it.vel.x += xpercent * repulsion;
           it.vel.y += ypercent * repulsion;
         }

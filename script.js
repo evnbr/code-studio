@@ -313,7 +313,7 @@
       };
       self.pos = {x:0, y:0};                   // Position
       self.vel = {x:0, y:0};                   // Velocity
-      self.targ = {x:0, y:0};                  // Target velocity
+      self.targ = {x:0, y:0};                  // Target 
       self.T = 0;                              // Time
       self.anim_list = [];                     // List of animation properties
       self.lastT = 0;                          // previous Time

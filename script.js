@@ -3,7 +3,7 @@
   // ----
 
   var fric_constant = 0.99;
-  var spring_constant = 0.0008;
+  var spring_constant = 0.02;
   var targ_spring_constant = 0.0001;
   var stretch_constant = 0.1;
   var FPS = 60;
@@ -266,7 +266,7 @@
       self.el.style.webkitAnimationPlayState = "running";
       if (self.am_dragging) {
         self.am_dragging = false;
-        self.coast();
+        // self.coast();
       }
     };
 
@@ -281,19 +281,19 @@
 
 
     self.coast = function() {
-        // self.dist = Math.sqrt(self.xdist*self.xdist + self.ydist*self.ydist);
-        
-        springwall(self);
-        gravitate(self);
+        if (!self.am_dragging) {
+          springwall(self);
+          gravitate(self);
 
 
-        // Apply friction
-        self.vel.x *= fric_constant;
-        self.vel.y *= fric_constant;
+          // Apply friction
+          self.vel.x *= fric_constant;
+          self.vel.y *= fric_constant;
 
-        // Update position based on size of 'tick'
-        self.pos.x += self.vel.x * tick;
-        self.pos.y += self.vel.y * tick;
+          // Update position based on size of 'tick'
+          self.pos.x += self.vel.x * tick;
+          self.pos.y += self.vel.y * tick;
+        }
 
         // self.move({x: self.pos.x, y: self.pos.y});
     };
@@ -354,8 +354,8 @@
         var dist = Math.sqrt(xdist * xdist + ydist * ydist);
         var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
         var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
-        var springiness = dist * targ_spring_constant * 0.001;
-        var repulsion = -1/dist * targ_spring_constant * 200;
+        var springiness = dist * targ_spring_constant * 0.006;
+        var repulsion = -1/dist * targ_spring_constant * 100;
         it.vel.x += xpercent * springiness;
         it.vel.y += ypercent * springiness;
         it.vel.x += xpercent * repulsion;

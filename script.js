@@ -11,7 +11,7 @@
   var inset = {x: 0, y: 0};
   var doc = document;
   var wind = {w: window.innerWidth, h: window.innerHeight};
-  var bumper = 0; //wind.w / 8
+  var bumper = 50; //wind.w / 8
   var mouse = {x:0, y:0};
   var pmouse = {x:0, y:0};
   var tick = 1000 / FPS;
@@ -372,7 +372,7 @@
 
   var tilt = 0, roll = 0;
   window.addEventListener("deviceorientation", function () {
-      tilt = - event.beta - 10;
+      tilt = - event.beta + 10;
       roll = event.gamma;
   }, true);
 

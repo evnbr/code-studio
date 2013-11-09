@@ -77,10 +77,11 @@
       var y = 100 + arrangeMsg[i-1].y * 60;
 
       thing[i-1].move({x: x, y: y});
+      // thing[i-1].targ({x: x, y: y});
 
       thing[i-1].vel = {
-        x: (Math.random() * 0.2 - 0.1),
-        y: (Math.random() * 0.2 - 0.1)
+        x: 0, //(Math.random() * 0.2 - 0.1),
+        y: 0 //(Math.random() * 0.2 - 0.1)
       };
 
     }
@@ -129,8 +130,8 @@
     // -------
     for (var i = 10; i > 0; i--) {
       thing[i-1].vel = {
-        x: (Math.random() * 0.2 - 0.1),
-        y: (Math.random() * 0.2 - 0.1)
+        x: 0, //(Math.random() * 0.2 - 0.1),
+        y: 0 //(Math.random() * 0.2 - 0.1)
       };
     }
 

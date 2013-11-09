@@ -168,7 +168,7 @@
 
   function cursor(e) {
     pmouse = mouse;
-    mouse = { x: e.pageX, y: e.pageY };
+    mouse = { x: e.clientX, y: e.clientY };
   }
 
   function finger(e) {
@@ -241,7 +241,7 @@
 
       // If animating right now, puase animation and move to correct spot
       self.el.style.webkitAnimationPlayState = "paused";
-      self.move({x: self.$el.offset().left, y: self.$el.offset().top});
+      self.move({x: self.$el.offset().left, y: self.$el.offset().top - $(window).scrollTop()});
       self.el.style.webkitAnimationName = "";
       self.vel = {x:0, y:0};
 

@@ -48,6 +48,7 @@ nav {
   -webkit-user-select: none;
   height: 0em;
   position: absolute;
+  z-index: 999;
   left: 0;
   right: 0;
   top: 0; }
@@ -100,7 +101,6 @@ section {
   padding-top: 2em; }
 
 .people > li {
-  cursor: pointer;
   position: relative; }
   .people > li::after {
     font-size: 0.7em;

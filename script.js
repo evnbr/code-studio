@@ -2,7 +2,7 @@
   // Constants
   // ----
 
-  var fric_constant = 0.99;
+  var fric_constant = 0.97;
   var spring_constant = 0.02;
   var targ_spring_constant = 0.0001;
   var stretch_constant = 0.1;

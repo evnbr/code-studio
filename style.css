@@ -11,24 +11,26 @@ html {
   font: 24px/1.25em "Karla", sans-serif; }
 
 body {
-  color: #005fa0;
+  color: white;
   border-color: blue;
-  background: #e0fffb;
+  background: blue;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
-  transition: all 0.5s; }
+  transition: all 0.5s;
+  -webkit-animation: bgswap 100s infinite linear; }
 
 .wrap {
   padding: 9% 15%;
-  margin: auto;
   max-width: 1100px; }
 
 a, a:visited {
-  color: blue;
+  color: inherit;
   text-decoration: none;
-  border-bottom: 1px dotted blue; }
+  border-bottom: 1px dotted white; }
   a:hover, a:visited:hover {
-    border-bottom-style: solid; }
+    border-bottom-style: solid;
+    color: blue;
+    background: white; }
 
 @-webkit-keyframes colorswap {
   0% {
@@ -47,44 +49,24 @@ a, a:visited {
     border-color: #0091ad;
     color: #0091ad; } }
 
-@-moz-keyframes colorswap {
+@-webkit-keyframes bgswap {
   0% {
-    border-color: #0091ad;
-    color: #0091ad; }
+    background: blue; }
 
   33% {
-    border-color: blue;
-    color: blue; }
+    background: red; }
 
   66% {
-    border-color: red;
-    color: red; }
+    background: green; }
 
   100% {
-    border-color: #0091ad;
-    color: #0091ad; } }
-
-@keyframes colorswap {
-  0% {
-    border-color: #0091ad;
-    color: #0091ad; }
-
-  33% {
-    border-color: blue;
-    color: blue; }
-
-  66% {
-    border-color: red;
-    color: red; }
-
-  100% {
-    border-color: #0091ad;
-    color: #0091ad; } }
+    background: blue; } }
 
 nav {
   -webkit-user-select: none;
   height: 0em;
   position: absolute;
+  z-index: 0;
   left: 0;
   right: 0;
   top: 0; }
@@ -106,9 +88,13 @@ nav {
     height: 70px;
     width: 70px;
     cursor: -webkit-grab;
-    opacity: 1; }
+    opacity: 0.3; }
     .head .inner:hover {
-      opacity: 0.8; }
+      opacity: 0.6; }
+
+h1 {
+  padding-bottom: 1em;
+  font-weight: bold; }
 
 h2 {
   display: inline-block;
@@ -124,17 +110,16 @@ h3 {
 
 section {
   position: relative;
-  padding-bottom: 5em;
-  z-index: 999; }
+  margin-bottom: 5em; }
 
 .info {
-  padding-top: 2em; }
+  margin-top: 2em; }
 
 .metadata {
-  padding-bottom: 1em; }
+  margin-bottom: 1em; }
 
 .people {
-  padding-top: 2em; }
+  margin-top: 2em; }
 
 .people {
   -webkit-columns: 2; }
@@ -152,6 +137,10 @@ section {
     transition: all 0.3s; }
 
 @media (max-width: 500px) {
+  body {
+    font-size: 20px;
+    line-height: 1.2em; }
+
   .head .inner {
     height: 50px;
     width: 50px;

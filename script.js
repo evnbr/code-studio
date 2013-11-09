@@ -357,7 +357,7 @@
         var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
         var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
         var springiness = dist*dist * targ_spring_constant * 0.002;
-        var repulsion = -1/dist*dist * targ_spring_constant * 1000;
+        var repulsion = -1/dist*dist * targ_spring_constant * 500;
         //it.vel.x += xpercent * springiness;
         //it.vel.y += ypercent * springiness;
         if (dist < 55) {

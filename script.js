@@ -377,8 +377,8 @@
   }, true);
 
   function tiltsense(it) {
-    it.vel.x += 0.001 * roll;
-    it.vel.y += 0.001 * tilt;
+    it.vel.x += 0.0001 * roll;
+    it.vel.y += 0.0001 * tilt;
   }
 
 

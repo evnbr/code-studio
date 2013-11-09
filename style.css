@@ -67,10 +67,6 @@ nav {
     width: 70px;
     cursor: -webkit-grab;
     opacity: 1; }
-    .head .inner:hover {
-      -webkit-transform: scale(1.5); }
-    .head .inner:active {
-      -webkit-transform: scale(1.2); }
 
 h2 {
   display: inline-block;

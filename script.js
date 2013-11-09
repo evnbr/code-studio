@@ -282,6 +282,8 @@
 
     self.coast = function() {
         if (!self.am_dragging) {
+
+          tiltsense(self);
           springwall(self);
           gravitate(self);
 
@@ -368,8 +370,16 @@
   }
 
 
+  var tilt = 0, roll = 0;
+  window.addEventListener("deviceorientation", function () {
+      tilt = event.beta;
+      roll = event.gamma;
+  }, true);
 
-
+  function tiltsense(it) {
+    it.vel.x += 0.001 * roll;
+    it.vel.y += 0.001 * tilt;
+  }
 
 
 

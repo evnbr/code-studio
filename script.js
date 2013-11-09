@@ -11,7 +11,7 @@
   var inset = {x: 0, y: 0};
   var doc = document;
   var wind = {w: window.innerWidth, h: window.innerHeight};
-  var bumper = 50; //wind.w / 8
+  var bumper = 30; //wind.w / 8
   var mouse = {x:0, y:0};
   var pmouse = {x:0, y:0};
   var tick = 1000 / FPS;

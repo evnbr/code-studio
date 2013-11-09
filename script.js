@@ -2,7 +2,7 @@
   // Constants
   // ----
 
-  var fric_constant = 0.99;
+  var fric_constant = 0.95;
   var spring_constant = 0.02;
   var targ_spring_constant = 0.0001;
   var stretch_constant = 0.1;
@@ -348,18 +348,20 @@
     //i.vel.y += ypercent * springiness;
 
     for (var i = 0; i < thing.length; i++) {
-      if (thing[i] !== it) {
+      if (thing[i] !== it ) {
         var xdist = Math.abs(thing[i].pos.x - it.pos.x);
         var ydist = Math.abs(thing[i].pos.y - it.pos.y);
         var dist = Math.sqrt(xdist * xdist + ydist * ydist);
         var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
         var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
-        var springiness = dist * targ_spring_constant * 0.006;
-        var repulsion = -1/dist * targ_spring_constant * 100;
+        var springiness = dist*dist * targ_spring_constant * 0.002;
+        var repulsion = -1/dist*dist * targ_spring_constant * 1000;
         it.vel.x += xpercent * springiness;
         it.vel.y += ypercent * springiness;
-        it.vel.x += xpercent * repulsion;
-        it.vel.y += ypercent * repulsion;
+        if (dist < 100) {
+          it.vel.x += xpercent * repulsion;
+          it.vel.y += ypercent * repulsion;
+        }
       }
     }
 

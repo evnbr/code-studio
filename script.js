@@ -111,7 +111,7 @@
     window.onresize = resize;
 
 
-
+    get_google_events();
     document.body.className = "letters-ready";
 
     (function step(){
@@ -499,3 +499,49 @@
     );
   }
 
+
+
+// Based on http://mikeclaffey.com/google-calendar-into-html/
+function get_google_events() {
+  var calendar_json_url = "http://www.google.com/calendar/feeds/risd.edu_4stut9jsdgns49dkgdtks7efvc@group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&max-results=3&futureevents=true&alt=json"
+
+  // Get list of upcoming events formatted in JSON
+  jQuery.getJSON(calendar_json_url, function(data){
+
+    // Parse and render each event
+    jQuery.each(data.feed.entry, function(i, item){
+      if(i == 0) {
+          jQuery("#gcal-events > li").first().hide();
+      };
+      
+      // event title
+      var event_title = item.title.$t;
+      
+      // event contents
+      var event_contents = jQuery.trim(item.content.$t);
+      // make each separate line a new list item
+      // event_contents = event_contents.replace(/\n/g,"</li><li>");
+
+      // event start date/time
+      var event_start_date = moment(item.gd$when[0].startTime);
+      var event_start_str = event_start_date.format("h:mma — dddd, MMMM D");
+      var event_tonow = event_start_date.fromNow();
+      
+      // event location - if not null, surround with parens
+      var event_loc = item.gd$where[0].valueString;
+      
+      // Render the event
+      jQuery("#gcal-events > li").last().before(
+            "<li class='event'>"
+          +   "<h3>" + event_title + "</h3>"
+          +   "<ul class='metadata'>"
+          +     "<li>" + event_start_str + "</li>"
+          +     "<li>" + event_tonow + "</li>"
+          +     "<li>" + event_loc + "</li>"
+          +   "</ul>"
+          +   "<p>" + event_contents + "</p>"
+          + "</li>"
+      );
+    });
+  });
+}

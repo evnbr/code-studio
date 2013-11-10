@@ -142,9 +142,6 @@ section {
 .people {
   margin-top: 2em; }
 
-.people {
-  -webkit-columns: 2; }
-
 .people > li {
   position: relative; }
   .people > li::after {
@@ -156,6 +153,16 @@ section {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s; }
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0; }
+
+  to {
+    opacity: 1; } }
+
+.event {
+  -webkit-animation: fadein 2s 1; }
 
 @media (max-width: 500px) {
   body {

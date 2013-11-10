@@ -525,7 +525,7 @@ function get_google_events() {
       // event start date/time
       var event_start_date = moment(item.gd$when[0].startTime);
       var event_start_str = event_start_date.format("h:mma — dddd, MMMM D");
-      var event_tonow = event_start_date.fromNow();
+      var event_tonow = "(" + event_start_date.fromNow() +")";
       
       // event location - if not null, surround with parens
       var event_loc = item.gd$where[0].valueString;
@@ -535,8 +535,7 @@ function get_google_events() {
             "<li class='event'>"
           +   "<h3>" + event_title + "</h3>"
           +   "<ul class='metadata'>"
-          +     "<li>" + event_start_str + "</li>"
-          +     "<li>" + event_tonow + "</li>"
+          +     "<li>" + event_start_str + " " + event_tonow + "</li>"
           +     "<li>" + event_loc + "</li>"
           +   "</ul>"
           +   "<p>" + event_contents + "</p>"

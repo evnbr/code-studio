@@ -503,7 +503,7 @@
 
 // Based on http://mikeclaffey.com/google-calendar-into-html/
 function get_google_events() {
-  var calendar_json_url = "http://www.google.com/calendar/feeds/risd.edu_4stut9jsdgns49dkgdtks7efvc@group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&max-results=3&futureevents=true&alt=json"
+  var calendar_json_url = "http://www.google.com/calendar/feeds/risd.edu_4stut9jsdgns49dkgdtks7efvc@group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&max-results=1&futureevents=true&alt=json"
 
   // Get list of upcoming events formatted in JSON
   jQuery.getJSON(calendar_json_url, function(data){

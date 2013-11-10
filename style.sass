@@ -121,7 +121,7 @@ nav
     cursor: -webkit-grab
     opacity: 0.3
     &:hover
-      opacity: 0.6
+      opacity: 0.5
     &:active
 
 h1
@@ -173,9 +173,8 @@ section
 
 .people
   margin-top: 2em
-
-.people
-  //-webkit-columns: 2
+  display: inline-block
+  width: 49%
 
 .people > li
   position: relative
@@ -211,4 +210,6 @@ section
   .wrap
     padding: 9% 5% 40% 5% 
   .people
-    -webkit-columns: 1
+    width: 100%
+  .people + .people
+    margin-top: 0

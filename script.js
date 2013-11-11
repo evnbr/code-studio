@@ -544,5 +544,7 @@ function get_google_events() {
           + "</li>"
       );
     });
+  }).error(function(){
+    jQuery("#gcal-events > li").first().html("Couldn't load events :(");
   });
 }

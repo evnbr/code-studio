@@ -11,9 +11,8 @@ html
   font: 24px/1.25em "Karla", sans-serif
 
 body
-  color: white
   border-color: blue
-  background: blue //#EDF8F7
+  background: white
   -webkit-transition: all 0.5s
   -moz-transition: all 0.5s
   transition: all 0.5s
@@ -54,36 +53,6 @@ $size: 70px
 //     color: #0091ad
 
 
-@-webkit-keyframes bgswap
-  0%
-    background: blue
-  33%
-    background: red
-  66%
-    background: green
-  100%
-    background: blue
-
-@-moz-keyframes bgswap
-  0%
-    background: blue
-  33%
-    background: red
-  66%
-    background: green
-  100%
-    background: blue
-
-@keyframes bgswap
-  0%
-    background: blue
-  33%
-    background: red
-  66%
-    background: green
-  100%
-    background: blue
-
 nav 
   -webkit-user-select: none
   height: 0em
@@ -92,13 +61,10 @@ nav
   left: 0
   right: 0
   top: 0
-  opacity: 0
   -webkit-transition: opacity 2s
   -moz-transition: opacity 2s
   transition: opacity 2s
 
-.letters-ready nav
-  opacity: 1
 
 .head
   display: inline-block
@@ -106,23 +72,39 @@ nav
   .inner
     border-radius: 50%
     font-weight: bold
-    color: white
-    margin: -10vw
+    text-transform: uppercase
+    color: black
+    background: transparent
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     -moz-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.920)
     text-align: center
-    font-size: 30vw
-    line-height: 20vw
-    height: 20vw
-    width: 20vw
+    font-size: 32px
+    line-height: 3em
+    height: 3em
+    width: 3em
+    margin: -1.5em
     cursor: move
     cursor: grab
     cursor: -webkit-grab
-    opacity: 0.3
     &:hover
       opacity: 0.5
     &:active
+
+.head
+  .inner
+    color: rgba(#E81A1A, 0.8)
+    border: 2px solid rgba(#E81A1A, 0.4)
+
+#box6, #box7, #box8, #box9, #box10, #box11, #box12, #box13
+  .inner
+    color: rgba(#1B5EAF, 0.8)
+    border: 2px solid rgba(#1B5EAF, 0.4)
+
+#box14, #box15, #box16, #box17, #box18
+  .inner
+    color: rgba(#F9C900, 1)
+    border: 2px solid rgba(#F9C900, 1)
 
 h1
   // text-transform: uppercase 

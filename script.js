@@ -19,18 +19,29 @@
 
 
   var arrangeMsg = [
-    {x: 0, y: 0}, // c
-    {x: 1, y: 0}, // o
-    {x: 2, y: 0}, // d
-    {x: 3, y: 0}, // e
+    {x: 0, y: 0}, // h
+    {x: 1, y: 0}, // a
+    {x: 2, y: 0}, // p
+    {x: 3, y: 0}, // p
+    {x: 4, y: 0}, // y
 
-    {x: 0, y: 1}, // t
-    {x: 1, y: 1}, // u
-    {x: 2, y: 1}, // d
-    {x: 3, y: 1}, // i
-    {x: 4, y: 1}, // o
-    {x: 5, y: 1}, // o
+    {x: 0, y: 1}, // b
+    {x: 1, y: 1}, // i
+    {x: 2, y: 1}, // r
+    {x: 3, y: 1}, // t
+    {x: 4, y: 1}, // h
+    {x: 5, y: 1}, // d
+    {x: 6, y: 1}, // a
+    {x: 7, y: 1}, // y
+
+    {x: 0, y: 2}, // d
+    {x: 1, y: 2}, // a
+    {x: 2, y: 2}, // i
+    {x: 3, y: 2}, // s
+    {x: 4, y: 2}, // y
   ];
+
+  var letter_count = arrangeMsg.length;
 
 
   $(function(){
@@ -39,31 +50,32 @@
     
     // Instantiate each letter
     // -----------------------
-    for (var i = 10; i > 0; i--) {
+    for (var i = letter_count; i > 0; i--) {
       thing[i-1] = new Physical("box" + i);
-      var x = wind.w/9 + arrangeMsg[i-1].x * wind.w/6;
-      var y = wind.w/6 + arrangeMsg[i-1].y * wind.w/6;
+      var x = wind.w/9 + arrangeMsg[i-1].x * 77 ;
+      var y = wind.w/6 + arrangeMsg[i-1].y * 77;
       thing[i-1].move({x: x, y: y});
       thing[i-1].vel = {
-        x: (Math.random() * 0.5 - 0.25),
-        y: (Math.random() * 0.5 - 0.25)
+        x: 0,// (Math.random() * 0.5 - 0.25),
+        y: 0 //(Math.random() * 0.5 - 0.25)
       };
 
     }
 
     resize();
     window.onresize = resize;
-    get_google_events();
     document.body.className = "letters-ready";
 
     // Animation step
     // -------------
-    (function step(){
-      requestAnimationFrame(step);
-      for (var i = 10; i > 0; i--) { thing[i-1].coast(); }
-      // separate math and DOM steps
-      for (var i = 10; i > 0; i--) { thing[i-1].applyMove(); }
-    })();
+    setTimeout(function(){
+      (function step(){
+        requestAnimationFrame(step);
+        for (var i = letter_count; i > 0; i--) { thing[i-1].coast(); }
+        // separate math and DOM steps
+        for (var i = letter_count; i > 0; i--) { thing[i-1].applyMove(); }
+      })();
+    }, 300);
 
   });
 
@@ -74,7 +86,7 @@
 
     // Give each thing a random start velocity
     // -------
-    for (var i = 10; i > 0; i--) {
+    for (var i = letter_count; i > 0; i--) {
       thing[i-1].vel = {
         x: 0, //(Math.random() * 0.2 - 0.1),
         y: 0 //(Math.random() * 0.2 - 0.1)
@@ -87,12 +99,12 @@
       var horiz_centerer = 0; //(wind.w / 2) - 3 * arrange17spacer;
       var vert_centerer = 0; //(wind.h / 2) - 1.5 * arrange17spacer;
 
-      for (var i = 10; i > 0; i--) {
+      for (var i = letter_count; i > 0; i--) {
         var targx = arrangeMsg[i-1].x * arrange17spacer + horiz_centerer;
         var targy = arrangeMsg[i-1].y * arrange17spacer + vert_centerer;
         thing[i-1].targ = {x: targx, y: targy};
       }
-      for (var i = 10; i > 0; i--) { thing[i-1].coast(); }
+      for (var i = letter_count; i > 0; i--) { thing[i-1].coast(); }
     }
 
   }
@@ -260,13 +272,20 @@
         var dist = Math.sqrt(xdist * xdist + ydist * ydist);
         var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
         var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
-        var springiness = dist*dist * targ_spring_constant * 0.002;
-        var repulsion = -1/dist*dist * targ_spring_constant * 500;
+        var springiness = dist*dist * targ_spring_constant * 0.0001;
+        var repulsion = -1/dist*dist * targ_spring_constant * 1000;
+
+        // var bounceX = thing[i].vel.x + it.vel.x;
+        // var bounceY = thing[i].vel.y + it.vel.y;
+
         //it.vel.x += xpercent * springiness;
         //it.vel.y += ypercent * springiness;
-        if (dist < wind.w/6) {
+
+        if (dist < 80) {
           it.vel.x += xpercent * repulsion;
           it.vel.y += ypercent * repulsion;
+          // it.vel.x += xpercent * bounceX * 0.2;
+          // it.vel.y += ypercent * bounceY * 0.;
         }
       }
     }
@@ -283,8 +302,8 @@
   }
 
   function tiltsense(it) {
-    it.vel.x += 0.0001 * roll;
-    it.vel.y += 0.0001 * tilt;
+    it.vel.x += 0.001 * roll;
+    it.vel.y += 0.001 * tilt;
   }
 
 
@@ -353,49 +372,4 @@
 
 
 
-// Based on http://mikeclaffey.com/google-calendar-into-html/
-// ----------------
-function get_google_events() {
-  var calendar_json_url = "http://www.google.com/calendar/feeds/risd.edu_4stut9jsdgns49dkgdtks7efvc@group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&max-results=1&futureevents=true&alt=json"
 
-  // Get list of upcoming events formatted in JSON
-  jQuery.getJSON(calendar_json_url, function(data){
-
-    // Parse and render each event
-    jQuery.each(data.feed.entry, function(i, item){
-      if(i == 0) {
-          jQuery("#gcal-events > li").first().hide();
-      };
-      
-      // event title
-      var event_title = item.title.$t;
-      
-      // event contents
-      var event_contents = jQuery.trim(item.content.$t);
-      // make each separate line a new list item
-      // event_contents = event_contents.replace(/\n/g,"</li><li>");
-
-      // event start date/time
-      var event_start_date = moment(item.gd$when[0].startTime);
-      var event_start_str = event_start_date.format("h:mma — dddd, MMMM D");
-      var event_tonow = "(" + event_start_date.fromNow() +")";
-      
-      // event location
-      var event_loc = item.gd$where[0].valueString;
-      
-      // Render the event
-      jQuery("#gcal-events > li").last().before(
-            "<li class='event'>"
-          +   "<h3>" + event_title + "</h3>"
-          +   "<ul class='metadata'>"
-          +     "<li>" + event_start_str + " " + event_tonow + "</li>"
-          +     "<li>" + event_loc + "</li>"
-          +   "</ul>"
-          +   "<p>" + event_contents + "</p>"
-          + "</li>"
-      );
-    });
-  }).error(function(){
-    jQuery("#gcal-events > li").first().html("Couldn't load events :(");
-  });
-}

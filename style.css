@@ -11,8 +11,9 @@ html {
   font: 24px/1.25em "Karla", sans-serif; }
 
 body {
+  color: white;
   border-color: blue;
-  background: white;
+  background: blue;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
@@ -34,6 +35,45 @@ a, a:visited {
     color: blue;
     background: white; }
 
+@-webkit-keyframes bgswap {
+  0% {
+    background: blue; }
+
+  33% {
+    background: red; }
+
+  66% {
+    background: green; }
+
+  100% {
+    background: blue; } }
+
+@-moz-keyframes bgswap {
+  0% {
+    background: blue; }
+
+  33% {
+    background: red; }
+
+  66% {
+    background: green; }
+
+  100% {
+    background: blue; } }
+
+@keyframes bgswap {
+  0% {
+    background: blue; }
+
+  33% {
+    background: red; }
+
+  66% {
+    background: green; }
+
+  100% {
+    background: blue; } }
+
 nav {
   -webkit-user-select: none;
   height: 0em;
@@ -42,9 +82,13 @@ nav {
   left: 0;
   right: 0;
   top: 0;
+  opacity: 0;
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s;
   transition: opacity 2s; }
+
+.letters-ready nav {
+  opacity: 1; }
 
 .head {
   display: inline-block;
@@ -52,35 +96,22 @@ nav {
   .head .inner {
     border-radius: 50%;
     font-weight: bold;
-    text-transform: uppercase;
-    color: black;
-    background: transparent;
+    color: white;
+    margin: -10vw;
     -webkit-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     -moz-transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     transition: all 0.3s cubic-bezier(0.335, 1.575, 0.515, 0.92);
     text-align: center;
-    font-size: 32px;
-    line-height: 3em;
-    height: 3em;
-    width: 3em;
-    margin: -1.5em;
+    font-size: 30vw;
+    line-height: 20vw;
+    height: 20vw;
+    width: 20vw;
     cursor: move;
     cursor: grab;
-    cursor: -webkit-grab; }
+    cursor: -webkit-grab;
+    opacity: 0.3; }
     .head .inner:hover {
       opacity: 0.5; }
-
-.head .inner {
-  color: rgba(232, 26, 26, 0.8);
-  border: 2px solid rgba(232, 26, 26, 0.4); }
-
-#box6 .inner, #box7 .inner, #box8 .inner, #box9 .inner, #box10 .inner, #box11 .inner, #box12 .inner, #box13 .inner {
-  color: rgba(27, 94, 175, 0.8);
-  border: 2px solid rgba(27, 94, 175, 0.4); }
-
-#box14 .inner, #box15 .inner, #box16 .inner, #box17 .inner, #box18 .inner {
-  color: #f9c900;
-  border: 2px solid #f9c900; }
 
 h1 {
   padding-bottom: 1em;

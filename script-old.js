@@ -2,21 +2,54 @@
   // Constants
   // ----
 
-  var fric_constant = 0.97;
-  var spring_constant = 0.02;
-  var targ_spring_constant = 0.0001;
+  var fric_constant = 0.99;
+  var spring_constant = 0.0008;
+  var targ_spring_constant = 0.0008;
   var stretch_constant = 0.1;
   var FPS = 60;
+  var switch_time = 10;
   var inset = {x: 0, y: 0};
   var doc = document;
   var wind = {w: window.innerWidth, h: window.innerHeight};
-  var bumper = 30;
+  var bumper = wind.w / 8
   var mouse = {x:0, y:0};
   var pmouse = {x:0, y:0};
   var tick = 1000 / FPS;
+  var box1, gravitator;
   var this_is_an_iphone = isiPhone();
   var thing = [];
 
+
+
+  // Arrangement
+  // ---
+
+  var arrange17 = [
+    // Numeral 1
+    {x: -1, y: 1},
+    {x: 0, y: 0},
+    {x: 0, y: 1},
+    {x: 0, y: 2},
+    {x: 0, y: 3},
+    {x: 0, y: 4},
+    {x: 0, y: 5},
+
+    // Top bar
+    {x: 2, y: 0},
+    {x: 3, y: 0},
+    {x: 4, y: 0},
+    {x: 5, y: 0},
+
+    // Squiggle
+    {x: 4.95, y: 0.92},
+    {x: 4.63, y: 1.78},
+    {x: 4.08, y: 2.52},
+    {x: 3.53, y: 3.25},
+    {x: 3.14, y: 4.09},
+    {x: 3.00, y: 5.00},
+
+  ];
+  var arrange17spacer = 20;
 
   var arrangeMsg = [
     {x: 0, y: 0}, // c
@@ -37,35 +70,44 @@
     if (this_is_an_iphone) x = 1; //$("body").on("touchmove", finger);
     else                   doc.body.addEventListener("mousemove", cursor, false);
     
-    // Instantiate each letter
-    // -----------------------
     for (var i = 10; i > 0; i--) {
       thing[i-1] = new Physical("box" + i);
-      var x = wind.w/9 + arrangeMsg[i-1].x * wind.w/6;
-      var y = wind.w/6 + arrangeMsg[i-1].y * wind.w/6;
+
+      var x = Math.random() * wind.w;
+      var y = Math.random() * wind.h;
       thing[i-1].move({x: x, y: y});
+
       thing[i-1].vel = {
-        x: (Math.random() * 0.5 - 0.25),
-        y: (Math.random() * 0.5 - 0.25)
+        x: (Math.random() * 1 - 0.5),
+        y: (Math.random() * 1 - 0.5)
       };
 
     }
-
     resize();
+
+
+
+    var toggle = true;
+    function switch_toggle(){
+      $("head style").remove();
+      if (toggle) {
+        set_position("numeral");
+        toggle = false;
+      }
+      else {
+        set_position("message");
+        toggle = true;
+      }
+    }
+    // setInterval(switch_toggle, switch_time * 1000);
+
+    //thing1.move({x: wind.w - 200, y: wind.h*2/3}).coast();
+    //thing2.move({x: 200, y: wind.h/3}).coast();
+
     window.onresize = resize;
-    get_google_events();
-    document.body.className = "letters-ready";
-
-    // Animation step
-    // -------------
-    (function step(){
-      requestAnimationFrame(step);
-      for (var i = 10; i > 0; i--) { thing[i-1].coast(); }
-      // separate math and DOM steps
-      for (var i = 10; i > 0; i--) { thing[i-1].applyMove(); }
-    })();
-
   });
+
+
 
 
 
@@ -76,14 +118,26 @@
     // -------
     for (var i = 10; i > 0; i--) {
       thing[i-1].vel = {
-        x: 0, //(Math.random() * 0.2 - 0.1),
-        y: 0 //(Math.random() * 0.2 - 0.1)
+        x: (Math.random() * 1 - 0.5),
+        y: (Math.random() * 1 - 0.5)
       };
     }
 
     // Set each things new target position, then begin coasting
     // --------
-    if (pos == "message") {
+    if (pos == "numeral") {
+      var horiz_centerer = 0; //(wind.w / 2) - 2 * arrange17spacer;
+      var vert_centerer = 0; //(wind.h / 2) - 3 * arrange17spacer;
+
+      for (var i = 10; i > 0; i--) {
+        var targx = arrange17[i-1].x * arrange17spacer + horiz_centerer;
+        var targy = arrange17[i-1].y * arrange17spacer + vert_centerer;
+        thing[i-1].targ = {x: targx, y: targy};
+      }
+      for (var i = 10; i > 0; i--) { thing[i-1].coast(); }
+
+    }
+    else if (pos == "message") {
       var horiz_centerer = 0; //(wind.w / 2) - 3 * arrange17spacer;
       var vert_centerer = 0; //(wind.h / 2) - 1.5 * arrange17spacer;
 
@@ -103,11 +157,11 @@
 
   function cursor(e) {
     pmouse = mouse;
-    mouse = { x: e.clientX, y: e.clientY };
+    mouse = { x: e.pageX, y: e.pageY };
   }
 
   function finger(e) {
-    // e.preventDefault();
+    e.preventDefault();
     if (e.changedTouches) {
       pmouse = mouse;
       mouse = { x: e.changedTouches[0].pageX, y: e.changedTouches[0].pageY };
@@ -123,6 +177,7 @@
   var after;
   function resize() {
     wind = {w: window.innerWidth, h: window.innerHeight};
+    bumper = wind.w / 8;
 
     if (wind.w < 500) {
       arrange17spacer = 20;
@@ -136,9 +191,12 @@
     clearTimeout(after);
     after = setTimeout(reset_after_resize, 200);
   }
+
   function reset_after_resize() {
     set_position("message");
   }
+
+
 
 
 
@@ -151,7 +209,6 @@
                 y: go.y };
       //$("#log").html(build_tform(self.pos.x, self.pos.y, self.pos.vel));
       self.el.style.webkitTransform = build_tform(self.pos.x, self.pos.y, self.pos.vel);
-      self.el.style.transform = build_tform(self.pos.x, self.pos.y, self.pos.vel);
       return self;
     };
     self.make_draggable = function(phys) {
@@ -164,7 +221,7 @@
       else {
         self.el.addEventListener('mousedown',self.start,false);
         doc.body.addEventListener('mouseup',self.end,false);
-        doc.body.addEventListener('mouseout',self.end,false);
+        //doc.body.addEventListener('mouseout',self.end,false);
         doc.body.addEventListener('mousemove',self.drag,false);
       }
     };
@@ -173,7 +230,8 @@
       if (this_is_an_iphone) finger(e);
 
       // If animating right now, puase animation and move to correct spot
-      self.move({x: self.$el.offset().left, y: self.$el.offset().top - $(window).scrollTop()});
+      self.el.style.webkitAnimationPlayState = "paused";
+      self.move({x: self.$el.offset().left, y: self.$el.offset().top});
       self.el.style.webkitAnimationName = "";
       self.vel = {x:0, y:0};
 
@@ -194,50 +252,90 @@
       }
     };
     self.end = function() {
+      self.el.style.webkitAnimationPlayState = "running";
       if (self.am_dragging) {
         self.am_dragging = false;
+        self.coast();
       }
     };
 
-    self.coast = function() {
-        if (!self.am_dragging) {
 
-          tiltsense(self);
-          springwall(self);
-          gravitate(self);
-
-
-          // Apply friction
-          self.vel.x *= fric_constant;
-          self.vel.y *= fric_constant;
-
-          // Update position based on size of 'tick'
-          self.pos.x += self.vel.x * tick;
-          self.pos.y += self.vel.y * tick;
-        }
-
-        // self.move({x: self.pos.x, y: self.pos.y});
-    };
-
-    self.applyMove = function() {
-      self.move({x: self.pos.x, y: self.pos.y});
+    // Returns true when animation should be completed and cleaned up
+    function reachedTarget() {
+        self.ydist = Math.abs(self.targ.y - self.pos.y);
+        self.xdist = Math.abs(self.targ.x - self.pos.x);
+        return ( Math.abs(self.vel.x) + Math.abs(self.vel.y) < 0.5 &&
+                 Math.abs(self.xdist) + Math.abs(self.ydist) < 0.5 );
     }
 
+
+    self.coast = function() {
+      var counter = 0;
+      self.anim_list = [];
+
+      while ( !reachedTarget() && counter < 1000) {
+        // spring towards center of gravity
+
+        self.dist = Math.sqrt(self.xdist*self.xdist + self.ydist*self.ydist);
+        
+        springwall(self);
+        // gravitate(self);
+
+
+        // Apply friction
+        self.vel.x *= fric_constant;
+        self.vel.y *= fric_constant;
+
+        // Update position based on size of 'tick'
+        self.pos.x += self.vel.x * tick;
+        self.pos.y += self.vel.y * tick;
+
+        // Copy properties into list for animation
+        var copied = {x: self.pos.x, y: self.pos.y};
+        self.anim_list.push(copied);
+
+        counter++;
+
+      }
+
+      // Build and insert CSS animation
+      var css = build_css(self, self.anim_list);
+      insert_css(self.anim_id, css);
+
+      // Build and apply CSS property referencing animation
+      var t = (self.anim_list.length)/60;
+      if (t < 1 || isNaN(t)) t = 1;
+      self.el.style.webkitAnimationName = self.anim_id;
+      self.el.style.webkitAnimationDuration = t +"s";
+      self.el.style.webkitAnimationTimingFunction = "linear";
+
+      // Move to end position, for when animation has completed
+      self.move(self.targ);
+
+    };
     self.initiate = function() {
       self.selector = selector;                // Div id name
       self.$el = $("#" + selector);            // Jquery object
       self.el = doc.getElementById(selector);  // DOM Node
       self.inner = self.el.getElementsByClassName("inner")[0];
+      self.physics = false;                    // Whether it responds to physics
       self.size = {                            // Div size
         w: self.el.offsetWidth,
         h: self.el.offsetHeight
       };
       self.pos = {x:0, y:0};                   // Position
       self.vel = {x:0, y:0};                   // Velocity
-      self.targ = {x:0, y:0};                  // Target 
+      self.targ = {x:0, y:0};                  // Target velocity
       self.T = 0;                              // Time
+      self.anim_list = [];                     // List of animation properties
       self.lastT = 0;                          // previous Time
       self.currT = 0;                          // current Time
+      self.anim_id = "anim_0";                 // Name of animation
+
+      self.el.addEventListener("webkitAnimationEnd", function(){
+        self.el.style.webkitAnimationName = "";
+        remove_node(self.anim_id);
+      });
       self.make_draggable(true);
     };
     self.initiate();
@@ -252,40 +350,18 @@
 
 
 
-  function gravitate(it) {
-    for (var i = 0; i < thing.length; i++) {
-      if (thing[i] !== it ) {
-        var xdist = Math.abs(thing[i].pos.x - it.pos.x);
-        var ydist = Math.abs(thing[i].pos.y - it.pos.y);
-        var dist = Math.sqrt(xdist * xdist + ydist * ydist);
-        var ypercent = (thing[i].pos.y - it.pos.y)/(xdist + ydist);
-        var xpercent = (thing[i].pos.x - it.pos.x)/(xdist + ydist);
-        var springiness = dist*dist * targ_spring_constant * 0.002;
-        var repulsion = -1/dist*dist * targ_spring_constant * 500;
-        //it.vel.x += xpercent * springiness;
-        //it.vel.y += ypercent * springiness;
-        if (dist < wind.w/6) {
-          it.vel.x += xpercent * repulsion;
-          it.vel.y += ypercent * repulsion;
-        }
-      }
-    }
+  function gravitate(i) {
+    var springiness = i.dist * targ_spring_constant;
+    var ypercent = (i.targ.y - i.pos.y)/(i.xdist + i.ydist);
+    var xpercent = (i.targ.x - i.pos.x)/(i.xdist + i.ydist);
 
+    i.vel.x += xpercent * springiness;
+    i.vel.y += ypercent * springiness;
   }
 
 
-  var tilt = -3, roll = 0;
-  window.addEventListener("deviceorientation", tilt_detect, true);
 
-  function tilt_detect(event) {
-    tilt = event.beta;
-    roll = event.gamma;
-  }
 
-  function tiltsense(it) {
-    it.vel.x += 0.0001 * roll;
-    it.vel.y += 0.0001 * tilt;
-  }
 
 
 
@@ -315,6 +391,21 @@
 
 
 
+
+
+
+
+
+
+
+  // Reset
+  // -----
+  function reset(obj) {
+    obj.x = 0;
+    obj.y = 0;
+  }
+
+
   // Time utility functions
   // ----------------------
   function get_time() {
@@ -340,6 +431,40 @@
   // CSS Utility functions
   // ---------------------
 
+  function build_css(thing, list) {
+    var len = list.length;
+    thing.anim_id = thing.selector + "-anim_" + (parseInt(thing.anim_id.split("_")[1], 10) + 1);
+
+    // Build first css
+    var css = "";
+    css += "@-webkit-keyframes "+thing.anim_id+" {";
+    for (i = 0; i < len; i++) {
+      css += ~~(i/len * 10000)/100 + "% {";
+      css += "-webkit-transform: " + build_tform(list[i].x, list[i].y, list[i].vel)+";}\n ";
+    }
+    css += "}\n";
+
+    return css;
+  }
+
+  function insert_css(id, css) {
+      var style = doc.createElement('style');
+      style.type = 'text/css';
+      style.id = id;
+      style.className = "animstyle";
+      if (style.styleSheet){
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(doc.createTextNode(css));
+      }
+      doc.head.appendChild(style);
+  }
+
+  function remove_node(id) {
+    n = doc.getElementById(id);
+    if (n) n.parentNode.removeChild(n);
+  }
+
   function isiPhone(){
     return (
         //Detect iPhone
@@ -351,51 +476,3 @@
     );
   }
 
-
-
-// Based on http://mikeclaffey.com/google-calendar-into-html/
-// ----------------
-function get_google_events() {
-  var calendar_json_url = "http://www.google.com/calendar/feeds/risd.edu_4stut9jsdgns49dkgdtks7efvc@group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&max-results=1&futureevents=true&alt=json"
-
-  // Get list of upcoming events formatted in JSON
-  jQuery.getJSON(calendar_json_url, function(data){
-
-    // Parse and render each event
-    jQuery.each(data.feed.entry, function(i, item){
-      if(i == 0) {
-          jQuery("#gcal-events > li").first().hide();
-      };
-      
-      // event title
-      var event_title = item.title.$t;
-      
-      // event contents
-      var event_contents = jQuery.trim(item.content.$t);
-      // make each separate line a new list item
-      // event_contents = event_contents.replace(/\n/g,"</li><li>");
-
-      // event start date/time
-      var event_start_date = moment(item.gd$when[0].startTime);
-      var event_start_str = event_start_date.format("h:mma — dddd, MMMM D");
-      var event_tonow = "(" + event_start_date.fromNow() +")";
-      
-      // event location
-      var event_loc = item.gd$where[0].valueString;
-      
-      // Render the event
-      jQuery("#gcal-events > li").last().before(
-            "<li class='event'>"
-          +   "<h3>" + event_title + "</h3>"
-          +   "<ul class='metadata'>"
-          +     "<li>" + event_start_str + " " + event_tonow + "</li>"
-          +     "<li>" + event_loc + "</li>"
-          +   "</ul>"
-          +   "<p>" + event_contents + "</p>"
-          + "</li>"
-      );
-    });
-  }).error(function(){
-    jQuery("#gcal-events > li").first().html("Couldn't load events :(");
-  });
-}
